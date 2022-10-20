@@ -1,4 +1,4 @@
-module golanglearning/new_project/k8s-operator-practice
+module k8s-operator-practice
 
 go 1.18
 
