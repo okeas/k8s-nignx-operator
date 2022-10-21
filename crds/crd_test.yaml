@@ -1,0 +1,7 @@
+apiVersion: extensions.jtthink.com/v1
+kind: Route
+metadata:
+  name: myroute
+spec:
+  version: "test"
+# 自定义资源，只有version字段

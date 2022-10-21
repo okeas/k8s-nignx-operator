@@ -26,13 +26,20 @@ func main() {
 
 
 	mgr, err := manager.New(k8sconfig.K8sConfig(), manager.Options{})
-	if err != nil {
+	if err  != nil {
 		myLog.Error(err, "unable to set up manager")
 		os.Exit(1)
 	}
 	// 传入资源&v1.Ingress{}，也可以用crd
 	err = builder.ControllerManagedBy(mgr).
 		For(&v1.Ingress{}).Complete(k8sconfig.NewMyProxyController())
+
+	//++ 注册进入序列化表
+	err = k8sconfig.SchemeBuilder.AddToScheme(mgr.GetScheme())
+	if err != nil {
+		myLog.Error(err, "unable add schema")
+		os.Exit(1)
+	}
 
 	if err != nil {
 		myLog.Error(err, "unable to create manager")
